@@ -13,6 +13,7 @@ WiFiManager wifiManager;
 
 void setup() {
     Serial.begin(9600);
+    Serial1.begin(9600);
     EEPROM.begin(1);
     tz=EEPROM.read(0);
     sprintf(timeZone,"%d",tz);
@@ -52,10 +53,13 @@ void loop() {
     }
     wifiManager.process();
     Serial.write(decToBCD(time_tm->tm_hour));
+    Serial1.write(decToBCD(time_tm->tm_hour));
     delay(10);
     Serial.write(decToBCD(time_tm->tm_min));
+    Serial1.write(decToBCD(time_tm->tm_min));
     delay(10);
     Serial.write(0xff); //end of packet
+    Serial1.write(0xff); //end of packet
     delay(500);
     i++;
 }
